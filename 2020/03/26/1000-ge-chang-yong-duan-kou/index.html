@@ -1,0 +1,1256 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="1000个常用端口, HTML, PWN, PowerShell, Web, Python, linux">
+    <meta name="description" content="热爱生活，注重过程">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>1000个常用端口 | kylin小小鱼</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+	<script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+    <script src="/libs/jquery/jquery.min.js"></script>
+	
+    
+<style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+ </script><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+ </script></head>
+
+
+
+ <div id="loading-container">
+     <p class="loading-text">玩命加载中 . . . </p> 
+     <div class="loading-image">
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div> 
+         <div></div>
+     </div>
+ </div><body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">kylin小小鱼</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">kylin小小鱼</div>
+        <div class="logo-desc">
+            
+            热爱生活，注重过程
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">1000个常用端口</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Web/">
+                                <span class="chip bg-color">Web</span>
+                            </a>
+                        
+                            <a href="/tags/PORT/">
+                                <span class="chip bg-color">PORT</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-03-26
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-03-26
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    15 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h4 id="1000个常用端口"><a href="#1000个常用端口" class="headerlink" title="1000个常用端口"></a>1000个常用端口</h4><ul>
+<li><p><a href="https://blog.csdn.net/lendq/article/details/80138830" target="_blank" rel="noopener">https://blog.csdn.net/lendq/article/details/80138830</a> </p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_37131111/article/details/82078260" target="_blank" rel="noopener">https://blog.csdn.net/qq_37131111/article/details/82078260</a> </p>
+</li>
+<li><p><a href="https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml" target="_blank" rel="noopener">https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml</a> </p>
+</li>
+<li><p>TCP 端口（静态端口）</p>
+<p>端口类型 端口号 注释<br>TCP 0 Reserved<br>TCP 1 TCP Port Service Multiplexer<br>TCP 2 Death<br>TCP 5 Remote Job Entry,yoyo<br>TCP 7 Echo<br>TCP 11 Skun<br>TCP 12 Bomber<br>TCP 16 Skun<br>TCP 17 Skun<br>TCP 18 消息传输协议，skun<br>TCP 19 Skun<br>TCP 20 FTP Data,Amanda<br>TCP 21 文件传输,Back Construction,Blade Runner,Doly Trojan,Fore,FTP trojan,Invisible FTP,Larva,WebEx,WinCrash<br>TCP 22 远程登录协议<br>TCP 23 远程登录（Telnet),Tiny Telnet Server (<br>TCP 25 电子邮件(SMTP),Ajan,Antigen,Email Password Sender,Happy 99,Kuang2,ProMail trojan,Shtrilitz,Stealth,Tapiras,Terminator,WinPC,WinSpy,Haebu Coceda<br>TCP 27 Assasin<br>TCP 28 Amanda<br>TCP 29 MSG ICP<br>TCP 30 Agent 40421<br>TCP 31 Agent 31,Hackers Paradise,Masters Paradise,Agent 40421<br>TCP 37 Time,ADM worm<br>TCP 39 SubSARI<br>TCP 41 DeepThroat,Foreplay<br>TCP 42 Host Name Server<br>TCP 43 WHOIS<br>TCP 44 Arctic<br>TCP 48 DRAT<br>TCP 49 主机登录协议<br>TCP 50 DRAT<br>TCP 51 IMP Logical Address Maintenance,Fuck Lamers Backdoor<br>TCP 52 MuSka52,Skun<br>TCP 53 DNS,Bonk (DOS Exploit)<br>TCP 54 MuSka52<br>TCP 58 DMSetup<br>TCP 59 DMSetup<br>TCP 63 whois++<br>TCP 64 Communications Integrator<br>TCP 65 TACACS-Database Service<br>TCP 66 Oracle SQL*NET,AL-Bareki<br>TCP 67 Bootstrap Protocol Server<br>TCP 68 Bootstrap Protocol Client<br>TCP 69 TFTP,W32.Evala.Worm,BackGate Kit,Nimda,Pasana,Storm,Storm worm,Theef,Worm.Cycle.a<br>TCP 70 Gopher服务，ADM worm<br>TCP 79 用户查询（Finger),Firehotcker,ADM worm<br>TCP 80 超文本服务器（Http),Executor,RingZero<br>TCP 81 Chubo,Worm.Bbeagle.q<br>TCP 82 Netsky-Z<br>TCP 88 Kerberos krb5服务<br>TCP 99 Hidden Port<br>TCP 102 消息传输代理<br>TCP 108 SNA网关访问服务器<br>TCP 109 Pop2<br>TCP 110 电子邮件（Pop3),ProMail<br>TCP 113 Kazimas,Auther Idnet<br>TCP 115 简单文件传输协议<br>TCP 118 SQL Services,Infector 1.4.2<br>TCP 119 新闻组传输协议（Newsgroup(Nntp)),Happy 99<br>TCP 121 JammerKiller,Bo jammerkillah<br>TCP 123 网络时间协议(NTP),Net Controller<br>TCP 129 Password Generator Protocol<br>TCP 133 Infector 1.x<br>TCP 135 微软DCE RPC end-point mapper服务<br>TCP 137 微软Netbios Name服务（网上邻居传输文件使用）<br>TCP 138 微软Netbios Name服务（网上邻居传输文件使用）<br>TCP 139 微软Netbios Name服务（用于文件及打印机共享）<br>TCP 142 NetTaxi<br>TCP 143 Internet 邮件访问协议版本 4（IMAP4)<br>TCP 146 FC Infector,Infector<br>TCP 150 NetBIOS Session Service<br>TCP 156 SQL服务器<br>TCP 161 Snmp<br>TCP 162 Snmp-Trap<br>TCP 170 A-Trojan<br>TCP 177 X Display管理控制协议<br>TCP 179 Border网关协议（BGP)<br>TCP 190 网关访问控制协议（GACP)<br>TCP 194 Irc<br>TCP 197 目录定位服务（DLS)<br>TCP 220 Internet 邮件访问协议版本 3（IMAP3)<br>TCP 256 Nirvana<br>TCP 315 The Invasor<br>TCP 371 ClearCase版本管理软件<br>TCP 389 Lightweight Directory Access Protocol (LDAP)<br>TCP 396 Novell Netware over IP<br>TCP 420 Breach<br>TCP 421 TCP Wrappers<br>TCP 443 安全服务（HTTPS）<br>TCP 444 Simple Network Paging Protocol(SNPP)<br>TCP 445 Microsoft-DS<br>TCP 455 Fatal Connections<br>TCP 456 Hackers paradise,FuseSpark<br>TCP 458 苹果公司QuickTime<br>TCP 513 Grlogin<br>TCP 514 RPC Backdoor<br>TCP 531 Rasmin,Net666<br>TCP 544 kerberos kshell<br>TCP 546 DHCP Client<br>TCP 547 DHCP Server<br>TCP 548 Macintosh文件服务<br>TCP 555 Ini-Killer,Phase Zero,Stealth Spy<br>TCP 569 MSN<br>TCP 605 SecretService<br>TCP 606 Noknok8<br>TCP 660 DeepThroat<br>TCP 661 Noknok8<br>TCP 666 Attack FTP,Satanz Backdoor,Back Construction,Dark Connection Inside 1.2<br>TCP 667 Noknok7.2<br>TCP 668 Noknok6<br>TCP 669 DP trojan<br>TCP 692 GayOL<br>TCP 707 Welchia,nachi<br>TCP 777 AIM Spy<br>TCP 808 RemoteControl,WinHole<br>TCP 815 Everyone Darling<br>TCP 901 Backdoor.Devil<br>TCP 911 Dark Shadow<br>TCP 990 ssl加密<br>TCP 993 IMAP<br>TCP 999 DeepThroat<br>TCP 1000 Der Spaeher<br>TCP 1001 Silencer,WebEx,Der Spaeher<br>TCP 1003 BackDoor<br>TCP 1010 Doly<br>TCP 1011 Doly<br>TCP 1012 Doly<br>TCP 1015 Doly<br>TCP 1016 Doly<br>TCP 1020 Vampire<br>TCP 1023 Worm.Sasser.e<br>TCP 端口（动态端口）</p>
+<p>端口类型 端口号 注释<br>TCP 1024 NetSpy.698(YAI)<br>TCP 1025 NetSpy.698,Unused Windows Services Block<br>TCP 1026 Unused Windows Services Block<br>TCP 1027 Unused Windows Services Block<br>TCP 1028 Unused Windows Services Block<br>TCP 1029 Unused Windows Services Block<br>TCP 1030 Unused Windows Services Block<br>TCP 1033 Netspy<br>TCP 1035 Multidropper<br>TCP 1042 Bla<br>TCP 1045 Rasmin<br>TCP 1047 GateCrasher<br>TCP 1050 MiniCommand<br>TCP 1059 nimreg<br>TCP 1069 Backdoor.TheefServer.202<br>TCP 1070 Voice,Psyber Stream Server,Streaming Audio Trojan<br>TCP 1080 Wingate,Worm.BugBear.B,Worm.Novarg.B<br>TCP 1090 Xtreme,VDOLive<br>TCP 1092 LoveGate<br>TCP 1095 Rat<br>TCP 1097 Rat<br>TCP 1098 Rat<br>TCP 1099 Rat<br>TCP 1110 nfsd-keepalive<br>TCP 1111 Backdoor.AIMVision<br>TCP 1155 Network File Access<br>TCP 1170 Psyber Stream Server,Streaming Audio trojan,Voice<br>TCP 1200 NoBackO<br>TCP 1201 NoBackO<br>TCP 1207 Softwar<br>TCP 1212 Nirvana,Visul Killer<br>TCP 1234 Ultors<br>TCP 1243 BackDoor-G,SubSeven,SubSeven Apocalypse<br>TCP 1245 VooDoo Doll<br>TCP 1269 Mavericks Matrix<br>TCP 1313 Nirvana<br>TCP 1349 BioNet<br>TCP 1433 Microsoft SQL服务<br>TCP 1441 Remote Storm<br>TCP 1492 FTP99CMP(BackOriffice.FTP)<br>TCP 1503 NetMeeting T.120<br>TCP 1509 Psyber Streaming Server<br>TCP 1600 Shivka-Burka<br>TCP 1688 Key Management Service(密钥管理服务)<br>TCP 1703 Exloiter 1.1<br>TCP 1720 NetMeeting H.233 call Setup<br>TCP 1723 VPN 网关（PPTP）<br>TCP 1731 NetMeeting音频调用控制<br>TCP 1807 SpySender<br>TCP 1966 Fake FTP 2000<br>TCP 1976 Custom port<br>TCP 1981 Shockrave<br>TCP 1990 stun-p1 cisco STUN Priority 1 port<br>TCP 1990 stun-p1 cisco STUN Priority 1 port<br>TCP 1991 stun-p2 cisco STUN Priority 2 port<br>TCP 1992 stun-p3 cisco STUN Priority 3 port,ipsendmsg IPsendmsg<br>TCP 1993 snmp-tcp-port cisco SNMP TCP port<br>TCP 1994 stun-port cisco serial tunnel port<br>TCP 1995 perf-port cisco perf port<br>TCP 1996 tr-rsrb-port cisco Remote SRB port<br>TCP 1997 gdp-port cisco Gateway Discovery Protocol<br>TCP 1998 x25-svc-port cisco X.25 service (XOT)<br>TCP 1999 BackDoor,TransScout<br>TCP 2000 Der Spaeher,INsane Network<br>TCP 2002 W32. Beagle .AX @mm<br>TCP 2001 Transmisson scout<br>TCP 2002 Transmisson scout<br>TCP 2003 Transmisson scout<br>TCP 2004 Transmisson scout<br>TCP 2005 TTransmisson scout<br>TCP 2011 cypress<br>TCP 2015 raid-cs<br>TCP 2023 Ripper,Pass Ripper,Hack City Ripper Pro<br>TCP 2049 NFS<br>TCP 2115 Bugs<br>TCP 2121 Nirvana<br>TCP 2140 Deep Throat,The Invasor<br>TCP 2155 Nirvana<br>TCP 2208 RuX<br>TCP 2255 Illusion Mailer<br>TCP 2283 HVL Rat5<br>TCP 2300 PC Explorer<br>TCP 2311 Studio54<br>TCP 2556 Worm.Bbeagle.q<br>TCP 2565 Striker<br>TCP 2583 WinCrash<br>TCP 2600 Digital RootBeer<br>TCP 2716 Prayer Trojan<br>TCP 2745 Worm.BBeagle.k<br>TCP 2773 Backdoor,SubSeven<br>TCP 2774 SubSeven2.1&amp;2.2<br>TCP 2801 Phineas Phucker<br>TCP 2989 Rat<br>TCP 3024 WinCrash trojan<br>TCP 3127 Worm.Novarg<br>TCP 3128 RingZero,Worm.Novarg.B<br>TCP 3129 Masters Paradise<br>TCP 3150 Deep Throat,The Invasor<br>TCP 3198 Worm.Novarg<br>TCP 3210 SchoolBus<br>TCP 3332 Worm.Cycle.a<br>TCP 3333 Prosiak<br>TCP 3389 超级终端（远程桌面）<br>TCP 3456 Terror<br>TCP 3459 Eclipse 2000<br>TCP 3700 Portal of Doom<br>TCP 3791 Eclypse<br>TCP 3801 Eclypse<br>TCP 3996 Portal of Doom,RemoteAnything<br>TCP 4000 腾讯QQ客户端<br>TCP 4060 Portal of Doom,RemoteAnything<br>TCP 4092 WinCrash<br>TCP 4242 VHM<br>TCP 4267 SubSeven2.1&amp;2.2<br>TCP 4321 BoBo<br>TCP 4444 Prosiak,Swift remote<br>TCP 4500 W32.HLLW.Tufas<br>TCP 4567 File Nail<br>TCP 4590 ICQTrojan<br>TCP 4899 Remote Administrator服务器<br>TCP 4950 ICQTrojan<br>TCP 5000 WindowsXP服务器，Blazer 5,Bubbel,Back Door Setup,Sockets de Troie<br>TCP 5001 Back Door Setup,Sockets de Troie<br>TCP 5002 cd00r,Shaft<br>TCP 5011 One of the Last Trojans (OOTLT)<br>TCP 5025 WM Remote KeyLogger<br>TCP 5031 Firehotcker,Metropolitan,NetMetro<br>TCP 5032 Metropolitan<br>TCP 5190 ICQ Query<br>TCP 5321 Firehotcker<br>TCP 5333 Backage Trojan Box 3<br>TCP 5343 WCrat<br>TCP 5400 Blade Runner,BackConstruction1.2<br>TCP 5401 Blade Runner,Back Construction<br>TCP 5402 Blade Runner,Back Construction<br>TCP 5471 WinCrash<br>TCP 5512 Illusion Mailer<br>TCP 5521 Illusion Mailer<br>TCP 5550 Xtcp,INsane Network<br>TCP 5554 Worm.Sasser<br>TCP 5555 ServeMe<br>TCP 5556 BO Facil<br>TCP 5557 BO Facil<br>TCP 5569 Robo-Hack<br>TCP 5598 BackDoor 2.03<br>TCP 5631 PCAnyWhere data<br>TCP 5632 PCAnyWhere<br>TCP 5637 PC Crasher<br>TCP 5638 PC Crasher<br>TCP 5698 BackDoor<br>TCP 5714 Wincrash3<br>TCP 5741 WinCrash3<br>TCP 5742 WinCrash<br>TCP 5760 Portmap Remote Root Linux Exploit<br>TCP 5880 Y3K RAT<br>TCP 5881 Y3K RAT<br>TCP 5882 Y3K RAT<br>TCP 5888 Y3K RAT<br>TCP 5889 Y3K RAT<br>TCP 5900 WinVnc<br>TCP 6000 Backdoor.AB<br>TCP 6006 Noknok8<br>TCP 6129 Dameware Nt Utilities服务器<br>TCP 6272 SecretService<br>TCP 6267 广外女生<br>TCP 6400 Backdoor.AB,The Thing<br>TCP 6500 Devil 1.03<br>TCP 6661 Teman<br>TCP 6666 TCPshell.c<br>TCP 6667 NT Remote Control,Wise 播放器接收端口<br>TCP 6668 Wise Video广播端口<br>TCP 6669 Vampyre<br>TCP 6670 DeepThroat,iPhone<br>TCP 6671 Deep Throat 3.0<br>TCP 6711 SubSeven<br>TCP 6712 SubSeven1.x<br>TCP 6713 SubSeven<br>TCP 6723 Mstream<br>TCP 6767 NT Remote Control<br>TCP 6771 DeepThroat<br>TCP 6776 BackDoor-G,SubSeven,2000 Cracks<br>TCP 6777 Worm.BBeagle<br>TCP 6789 Doly Trojan<br>TCP 6838 Mstream<br>TCP 6883 DeltaSource<br>TCP 6912 Shit Heep<br>TCP 6939 Indoctrination<br>TCP 6969 GateCrasher,Priority,IRC 3<br>TCP 6970 RealAudio,GateCrasher<br>TCP 7000 Remote Grab,NetMonitor,SubSeven1.x<br>TCP 7001 Freak88<br>TCP 7201 NetMonitor<br>TCP 7215 BackDoor-G,SubSeven<br>TCP 7001 Freak88,Freak2k<br>TCP 7300 NetMonitor<br>TCP 7301 NetMonitor<br>TCP 7306 NetMonitor,NetSpy 1.0<br>TCP 7307 NetMonitor,ProcSpy<br>TCP 7308 NetMonitor,X Spy<br>TCP 7323 Sygate服务器端<br>TCP 7424 Host Control<br>TCP 7511 聪明基因<br>TCP 7597 Qaz<br>TCP 7609 Snid X2<br>TCP 7626 冰河<br>TCP 7777 The Thing<br>TCP 7789 Back Door Setup,ICQKiller<br>TCP 7983 Mstream<br>TCP 8000 腾讯OICQ服务器端，XDMA<br>TCP 8010 Wingate,Logfile<br>TCP 8011 WAY2.4<br>TCP 8080 WWW 代理，Ring Zero,Chubo,Worm.Novarg.B<br>TCP 8102 网络神偷<br>TCP 8181 W32.Erkez.D@mm<br>TCP 8520 W32.Socay.Worm<br>TCP 8594 I-Worm/Bozori.a<br>TCP 8787 BackOfrice 2000<br>TCP 8888 Winvnc<br>TCP 8897 Hack Office,Armageddon<br>TCP 8989 Recon<br>TCP 9000 Netministrator<br>TCP 9325 Mstream<br>TCP 9400 InCommand 1.0<br>TCP 9401 InCommand 1.0<br>TCP 9402 InCommand 1.0<br>TCP 9872 Portal of Doom<br>TCP 9873 Portal of Doom<br>TCP 9874 Portal of Doom<br>TCP 9875 Portal of Doom<br>TCP 9876 Cyber Attacker<br>TCP 9878 TransScout<br>TCP 9989 Ini-Killer<br>TCP 9898 Worm.Win32.Dabber.a<br>TCP 9999 Prayer Trojan<br>TCP 10067 Portal of Doom<br>TCP 10080 Worm.Novarg.B<br>TCP 10084 Syphillis<br>TCP 10085 Syphillis<br>TCP 10086 Syphillis<br>TCP 10101 BrainSpy<br>TCP 10167 Portal Of Doom<br>TCP 10168 Worm.Supnot.78858.c,Worm.LovGate.T<br>TCP 10520 Acid Shivers<br>TCP 10607 Coma trojan<br>TCP 10666 Ambush<br>TCP 11000 Senna Spy<br>TCP 11050 Host Control<br>TCP 11051 Host Control<br>TCP 11223 Progenic,Hack ’99KeyLogger<br>TCP 11831 TROJ_LATINUS.SVR<br>TCP 12076 Gjamer,MSH.104b<br>TCP 12223 Hack’99 KeyLogger<br>TCP 12345 GabanBus,NetBus 1.6/1.7,Pie Bill Gates,X-bill<br>TCP 12346 GabanBus,NetBus 1.6/1.7,X-bill<br>TCP 12349 BioNet<br>TCP 12361 Whack-a-mole<br>TCP 12362 Whack-a-mole<br>TCP 12363 Whack-a-mole<br>TCP 12378 W32/Gibe@MM<br>TCP 12456 NetBus<br>TCP 12623 DUN Control<br>TCP 12624 Buttman<br>TCP 12631 WhackJob,WhackJob.NB1.7<br>TCP 12701 Eclipse2000<br>TCP 12754 Mstream<br>TCP 13000 Senna Spy<br>TCP 13010 Hacker Brazil<br>TCP 13013 Psychward<br>TCP 13223 Tribal Voice的聊天程序PowWow<br>TCP 13700 Kuang2 The Virus<br>TCP 14456 Solero<br>TCP 14500 PC Invader<br>TCP 14501 PC Invader<br>TCP 14502 PC Invader<br>TCP 14503 PC Invader<br>TCP 15000 NetDaemon 1.0<br>TCP 15092 Host Control<br>TCP 15104 Mstream<br>TCP 16484 Mosucker<br>TCP 16660 Stacheldraht (DDoS)<br>TCP 16772 ICQ Revenge<br>TCP 16959 Priority<br>TCP 16969 Priority<br>TCP 17027 提供广告服务的Conducent”adbot”共享软件<br>TCP 17166 Mosaic<br>TCP 17300 Kuang2 The Virus<br>TCP 17490 CrazyNet<br>TCP 17500 CrazyNet<br>TCP 17569 Infector 1.4.x + 1.6.x<br>TCP 17777 Nephron<br>TCP 18753 Shaft (DDoS)<br>TCP 19191 蓝色火焰<br>TCP 19864 ICQ Revenge<br>TCP 20000 Millennium II (GrilFriend)<br>TCP 20001 Millennium II (GrilFriend)<br>TCP 20002 AcidkoR<br>TCP 20034 NetBus 2 Pro<br>TCP 20168 Lovgate<br>TCP 20203 Logged,Chupacabra<br>TCP 20331 Bla<br>TCP 20432 Shaft (DDoS)<br>TCP 20808 Worm.LovGate.v.QQ<br>TCP 213 35 Tribal Flood Network,Trinoo<br>TCP 21544 Schwindler 1.82,GirlFriend<br>TCP 21554 Schwindler 1.82,GirlFriend,Exloiter 1.0.1.2<br>TCP 22222 Prosiak,RuXUploader2.0<br>TCP 22784 Backdoor.Intruzzo<br>TCP 23432 Asylum 0.1.3<br>TCP 23444 网络公牛<br>TCP 23456 Evil FTP,Ugly FTP,WhackJob<br>TCP 23476 Donald Dick<br>TCP 23477 Donald Dick<br>TCP 23777 INet Spy<br>TCP 26274 Delta<br>TCP 26681 Spy Voice<br>TCP 27374 Sub Seven 2.0+,Backdoor.Baste<br>TCP 27444 Tribal Flood Network,Trinoo<br>TCP 27665 Tribal Flood Network,Trinoo<br>TCP 29431 Hack Attack<br>TCP 29432 Hack Attack<br>TCP 29104 Host Control<br>TCP 29559 TROJ_LATINUS.SVR<br>TCP 29891 The Unexplained<br>TCP 30001 Terr0r32<br>TCP 30003 Death,Lamers Death<br>TCP 30029 AOL trojan<br>TCP 30100 NetSphere 1.27a,NetSphere 1.31<br>TCP 30101 NetSphere 1.31,NetSphere 1.27a<br>TCP 30102 NetSphere 1.27a,NetSphere 1.31<br>TCP 30103 NetSphere 1.31<br>TCP 30303 Sockets de Troie<br>TCP 30722 W32.Esbot.A<br>TCP 30947 Intruse<br>TCP 30999 Kuang2<br>TCP 31336 Bo Whack<br>TCP 31337 Baron Night,BO client,BO2,Bo Facil,BackFire,Back Orifice,DeepBO,Freak2k,NetSpy<br>TCP 31338 NetSpy,Back Orifice,DeepBO<br>TCP 31339 NetSpy DK<br>TCP 31554 Schwindler<br>TCP 31666 BOWhack<br>TCP 31778 Hack Attack<br>TCP 31785 Hack Attack<br>TCP 31787 Hack Attack<br>TCP 31789 Hack Attack<br>TCP 31791 Hack Attack<br>TCP 31792 Hack Attack<br>TCP 32100 PeanutBrittle<br>TCP 32418 Acid Battery<br>TCP 33333 Prosiak,Blakharaz 1.0<br>TCP 33577 Son Of Psychward<br>TCP 33777 Son Of Psychward<br>TCP 33911 Spirit 2001a<br>TCP 34324 BigGluck,TN,Tiny Telnet Server<br>TCP 34555 Trin00 (Windows) (DDoS)<br>TCP 35555 Trin00 (Windows) (DDoS)<br>TCP 36794 Worm.Bugbear-A<br>TCP 37651 YAT<br>TCP 40412 The Spy<br>TCP 40421 Agent 40421,Masters Paradise.96<br>TCP 40422 Masters Paradise<br>TCP 40423 Masters Paradise.97<br>TCP 40425 Masters Paradise<br>TCP 40426 Masters Paradise 3.x<br>TCP 41666 Remote Boot<br>TCP 43210 Schoolbus 1.6/2.0<br>TCP 44444 Delta Source<br>TCP 44445 Happypig<br>TCP 45576 未知代理<br>TCP 47252 Prosiak<br>TCP 47262 Delta<br>TCP 47878 BirdSpy2<br>TCP 49301 Online Keylogger<br>TCP 50505 Sockets de Troie<br>TCP 50766 Fore,Schwindler<br>TCP 51966 CafeIni<br>TCP 53001 Remote Windows Shutdown<br>TCP 53217 Acid Battery 2000<br>TCP 54283 Back Door-G,Sub7<br>TCP 54320 Back Orifice 2000,Sheep<br>TCP 54321 School Bus .69-1.11,Sheep,BO2K<br>TCP 57341 NetRaider<br>TCP 58008 BackDoor.Tron<br>TCP 58009 BackDoor.Tron<br>TCP 58339 ButtFunnel<br>TCP 59211 BackDoor.DuckToy<br>TCP 60000 Deep Throat<br>TCP 60068 Xzip 6000068<br>TCP 60268 DaYangou_bigppig<br>TCP 60411 Connection<br>TCP 60606 TROJ_BCKDOR.G2.A<br>TCP 61466 Telecommando<br>TCP 61603 Bunker-kill<br>TCP 63485 Bunker-kill<br>TCP 65000 Devil,DDoS<br>TCP 65432 Th3tr41t0r,The Traitor<br>TCP 65530 TROJ_WINMITE.10<br>TCP 65535 RC,Adore Worm/Linux<br>UDP 端口（静态端口）</p>
+<p>端口类型 端口号 注释<br>UDP 1 Sockets des Troie<br>UDP 9 Chargen<br>UDP 19 Chargen<br>UDP 69 Pasana<br>UDP 80 Penrox<br>UDP 371 ClearCase版本管理软件<br>UDP 445 公共Internet文件系统（CIFS)<br>UDP 500 Internet密钥交换（IP安全性 ,IKE)<br>UDP 520 Rip<br>UDP 端口（动态端口）|</p>
+<p>端口类型 端口号 注释<br>UDP 1025 Maverick’s Matrix 1.2 - 2.0<br>UDP 1026 Remote Explorer 2000<br>UDP 1027 UC聊天软件，Trojan.Huigezi.e<br>UDP 1028 3721上网助手（用途不明，建议用户警惕！），KiLo,SubSARI<br>UDP 1029 SubSARI<br>UDP 1031 Xot<br>UDP 1032 Akosch4<br>UDP 1104 RexxRave<br>UDP 1111 Daodan<br>UDP 1116 Lurker<br>UDP 1122 Last 2000,Singularity<br>UDP 1183 Cyn,SweetHeart<br>UDP 1200 NoBackO<br>UDP 1201 NoBackO<br>UDP 1342 BLA trojan<br>UDP 1344 Ptakks<br>UDP 1349 BO dll<br>UDP 1561 MuSka52<br>UDP 1701 VPN网关（L2TP）<br>UDP 1772 NetControle<br>UDP 1978 Slapper<br>UDP 1985 Black Diver<br>UDP 2000 A-trojan,Fear,Force,GOTHIC Intruder,Last 2000,Real 2000<br>UDP 2001 Scalper<br>UDP 2002 Slapper<br>UDP 2015 raid-cs<br>UDP 2018 rellpack<br>UDP 2130 Mini BackLash<br>UDP 2140 Deep Throat,Foreplay,The Invasor<br>UDP 2222 SweetHeart,Way<br>UDP 2339 Voice Spy<br>UDP 2702 Black Diver<br>UDP 2989 RAT<br>UDP 3150 Deep Throat<br>UDP 3215 XHX<br>UDP 3333 Daodan<br>UDP 3801 Eclypse<br>UDP 3996 Remote Anything<br>UDP 4128 RedShad<br>UDP 4156 Slapper<br>UDP 4500 sae-urn/ (IP安全性，IKE NAT遍历）<br>UDP 5419 DarkSky<br>UDP 5503 Remote Shell Trojan<br>UDP 5555 Daodan<br>UDP 5882 Y3K RAT<br>UDP 5888 Y3K RAT<br>UDP 6112 Battle .net Game<br>UDP 6666 KiLo<br>UDP 6667 KiLo<br>UDP 6766 KiLo<br>UDP 6767 KiLo,UandMe<br>UDP 6838 Mstream Agent-handler<br>UDP 7028 未知木马<br>UDP 7424 Host Control<br>UDP 7788 Singularity<br>UDP 7983 MStream handler-agent<br>UDP 8012 Ptakks<br>UDP 8090 Aphex’s Remote Packet Sniffer<br>UDP 8127 9_119,Chonker<br>UDP 8488 KiLo<br>UDP 8489 KiLo<br>UDP 8787 BackOrifice 2000<br>UDP 8879 BackOrifice 2000<br>UDP 9325 MStream Agent-handler<br>UDP 10000 XHX<br>UDP 10067 Portal of Doom<br>UDP 10084 Syphillis<br>UDP 10100 Slapper<br>UDP 10167 Portal of Doom<br>UDP 10498 Mstream<br>UDP 10666 Ambush<br>UDP 11225 Cyn<br>UDP 12321 Protoss<br>UDP 12345 BlueIce 2000<br>UDP 12378 W32/Gibe@MM<br>UDP 12623 ButtMan,DUN Control<br>UDP 15210 UDP remote shell backdoor server<br>UDP 15486 KiLo<br>UDP 16514 KiLo<br>UDP 16515 KiLo<br>UDP 18753 Shaft handler to Agent<br>UDP 20433 Shaft<br>UDP 21554 GirlFriend<br>UDP 22784 Backdoor.Intruzzo<br>UDP 23476 Donald Dick<br>UDP 25123 MOTD<br>UDP 26274 Delta Source<br>UDP 26374 Sub-7 2.1<br>UDP 26444 Trin00/TFN2K<br>UDP 26573 Sub-7 2.1<br>UDP 27184 Alvgus trojan 2000<br>UDP 27444 Trinoo<br>UDP 29589 KiLo<br>UDP 29891 The Unexplained<br>UDP 30103 NetSphere<br>UDP 31320 Little Witch<br>UDP 31335 Trin00 DoS Attack<br>UDP 31337 Baron Night,BO client,BO2,Bo Facil,BackFire,Back Orifice,DeepBO<br>UDP 31338 Back Orifice,NetSpy DK,DeepBO<br>UDP 31339 Little Witch<br>UDP 31340 Little Witch<br>UDP 31416 Lithium<br>UDP 31787 Hack aTack<br>UDP 31789 Hack aTack<br>UDP 31790 Hack aTack<br>UDP 31791 Hack aTack<br>UDP 33390 未知木马<br>UDP 34555 Trinoo<br>UDP 35555 Trinoo<br>UDP 43720 KiLo<br>UDP 44014 Iani<br>UDP 44767 School Bus<br>UDP 46666 Taskman<br>UDP 47262 Delta Source<br>UDP 47785 KiLo<br>UDP 49301 OnLine keyLogger<br>UDP 49683 Fenster<br>UDP 49698 KiLo<br>UDP 52901 Omega<br>UDP 54320 Back Orifice<br>UDP 54321 Back Orifice 2000<br>UDP 54341 NetRaider Trojan<br>UDP 61746 KiLO<br>UDP 61747 KiLO<br>UDP 61748 KiLO<br>UDP 65432 The Traitor</p>
+</li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://blog.aloogu.com" rel="external nofollow noreferrer">kylin</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://blog.aloogu.com/2020/03/26/1000-ge-chang-yong-duan-kou/">http://blog.aloogu.com/2020/03/26/1000-ge-chang-yong-duan-kou/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="http://blog.aloogu.com" target="_blank">kylin</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Web/">
+                                    <span class="chip bg-color">Web</span>
+                                </a>
+                            
+                                <a href="/tags/PORT/">
+                                    <span class="chip bg-color">PORT</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/03/26/chang-jian-mime-lei-xing/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="常见MIME类型">
+                        
+                        <span class="card-title">常见MIME类型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            收集一些，用不用得到再说，毕竟MIME流行这么多年了
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Web/" class="post-category">
+                                    Web
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web/">
+                        <span class="chip bg-color">Web</span>
+                    </a>
+                    
+                    <a href="/tags/MIME/">
+                        <span class="chip bg-color">MIME</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/03/26/mi-ma-xue/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="密码学">
+                        
+                        <span class="card-title">密码学</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            数字游戏，非常有意思，佩服搞密码学的大佬！
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Web/" class="post-category">
+                                    Web
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web/">
+                        <span class="chip bg-color">Web</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">
+                        <span class="chip bg-color">密码学</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('100')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: kylin小小鱼<br />'
+            + '文章作者: kylin<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('3'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="http://blog.aloogu.com" target="_blank">kylin</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">57.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "3";
+                    var startDate = "26";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/lingying177" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1770824244@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1770824244" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1770824244" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+	<script src="https://cdn.jsdelivr.net/gh/Yafine/cdn@3.1.4/source/js/click_show_text.js" type="module"></script>
+    
+
+</body>
+
+</html>

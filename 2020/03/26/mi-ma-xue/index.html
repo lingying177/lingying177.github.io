@@ -1,0 +1,1492 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="密码学, HTML, PWN, PowerShell, Web, Python, linux">
+    <meta name="description" content="热爱生活，注重过程">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>密码学 | kylin小小鱼</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+	<script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+    <script src="/libs/jquery/jquery.min.js"></script>
+	
+    
+<style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+ </script><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+ </script></head>
+
+
+
+ <div id="loading-container">
+     <p class="loading-text">玩命加载中 . . . </p> 
+     <div class="loading-image">
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div> 
+         <div></div>
+     </div>
+ </div><body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">kylin小小鱼</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">kylin小小鱼</div>
+        <div class="logo-desc">
+            
+            热爱生活，注重过程
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">密码学</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Web/">
+                                <span class="chip bg-color">Web</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">
+                                <span class="chip bg-color">密码学</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Web/" class="post-category">
+                                Web
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-03-26
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-03-27
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    8 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="密码学"><a href="#密码学" class="headerlink" title="密码学"></a>密码学</h3><p>解题时注意题目的提示，包括 <code>flag{}</code>格式提示</p>
+<h4 id="1-ASCII编码"><a href="#1-ASCII编码" class="headerlink" title="1 ASCII编码"></a>1 ASCII编码</h4><ul>
+<li><p>常用不可打印字符：%00，%0D，%0A，%7F，%80</p>
+</li>
+<li><p>可以使用burpsuit解码</p>
+</li>
+</ul>
+<h4 id="2-Base64-家族"><a href="#2-Base64-家族" class="headerlink" title="2 Base64 家族"></a>2 Base64 家族</h4><ul>
+<li>Base64编码原理<ul>
+<li>Base64的码表只有64个字符，如果要表达64个字符的话，使用6的bit即可完全表示(2的6次方为64)。</li>
+<li>因为Base64的编码只有6个bit即可表示，而正常的字符是使用8个bit表示，8和6的最 小公倍数是24，所以4个Base64字符可以表示3个标准的asclI字符;</li>
+<li>如果是字符串转换为Base64码，会 先把对应的字符串转换为asclI码表对应的数字，然后再把数字转换为2进制，比 如a的asclI码为97，97的二进制是: 01100001，把8个二进制提取成6个， 剩下的2个二进制和<br>后面的二进制继续拼接，最后再把6个二进制码转换为Base64对应的编码</li>
+</ul>
+</li>
+<li>可以使用burpsuit解码，hackbar解码</li>
+</ul>
+<h4 id="3-Quoted-printable编码方法"><a href="#3-Quoted-printable编码方法" class="headerlink" title="3 Quoted-printable编码方法"></a>3 Quoted-printable编码方法</h4><h4 id="4-Xxencode编码"><a href="#4-Xxencode编码" class="headerlink" title="4 Xxencode编码"></a>4 Xxencode编码</h4><ul>
+<li>原理：XXencode将输入文本以每三个字节为单位进行编码。如果最后剩下的资料少于三个字节，不够的部份用零补齐。这三个字节共有24个Bit，以6bit为单位分为4个组，每个组以十进制来表示所出现的数值只会落在0到63之间。以所对应值的位置字符代替。它所选择的可打印字符是: <code>+—0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</code>，一共64个字符。</li>
+<li>与base64在字符上的差别：去掉了 <code>/</code>，多了 <code>-</code></li>
+<li>每60个编码输出(相当于45个输入字节)将输出为独立的一行，每行的开头会加上长度字符，除了最后一行之外，长度字符都应该是 <code>h</code>  这个字符(45，刚好是64字符中，第45位h字符)，最后一行的长度字符为剩下的字节数目在64字符中位置所代表字符。</li>
+</ul>
+<h4 id="5-UUencode编码"><a href="#5-UUencode编码" class="headerlink" title="5 UUencode编码"></a>5 UUencode编码</h4><ul>
+<li>原理：Uuencode将输入资料以每三个字节为单位进行编码，如此重复进行。如果最后剩下的资料少于三个字节，不够的部份用零补齐。这三个字节共有24个Bit，以6-bit为单位分 为4个群组，每个群组以十进制来表示所出现的数值只会落在0到63之间。将每个数加上32，所产生的结果刚好落在ASCII字符集中可打印字符(<code>32-空白...95-下划线</code>) 的范围之中。每60个编码输出(相当于45个输入字节)将输出为独立的一行，每行的开头会加上长度字符，除了最后一行之外，长度字符都应该是 <code>M</code> 这个ASCII字符(77=32+45) ，最后一行的长度字符为32+剩下的字节数目这个ASCII字符。如果是一个0字节那它应该被转换为0X60而不是0X20，因为(前引用`) 优于0X20 (空格)。</li>
+</ul>
+<h4 id="6-URL编码"><a href="#6-URL编码" class="headerlink" title="6. URL编码"></a>6. URL编码</h4><h4 id="7-Escape-Unescape编码-逐渐废弃"><a href="#7-Escape-Unescape编码-逐渐废弃" class="headerlink" title="7. Escape/Unescape编码(逐渐废弃)"></a>7. Escape/Unescape编码(逐渐废弃)</h4><ul>
+<li>原理：Escape/Unescape加密解码/编码解码，又叫%u编码，从以往经验看编码字符串出现有<code>&quot;u&quot;</code>，它是unicode编码，Escape编码采用是 UTF-16BE 模式。这样一来问题非常简单了。Escape编码/加密,就是字符对应UTF-16 16进制表示方式前面加%u。Unescape解码/解密，就是去掉”%u”后，将16进制字符还原后，由UTF-16转码到自己目标字符。如:字符<strong>“中”</strong>，UTF-16BE是:<code>6d93</code>，因此Escape是“%u6d93”，反之也一样!因为目前%字符，常用作URL编码，所以%u这样编码已经逐渐被废弃了!</li>
+</ul>
+<h4 id="8-HTML实体编码"><a href="#8-HTML实体编码" class="headerlink" title="8. HTML实体编码"></a>8. HTML实体编码</h4><ul>
+<li>查询网址： <a href="https://www.w3school.com.cn/tags/html_ref_entities.html" target="_blank" rel="noopener">https://www.w3school.com.cn/tags/html_ref_entities.html</a> </li>
+</ul>
+<h4 id="9-敲击码"><a href="#9-敲击码" class="headerlink" title="9.敲击码"></a>9.敲击码</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/敲击码.jpg" style="zoom: 50%;" />
+
+</li>
+</ul>
+<h4 id="10-摩尔斯密码"><a href="#10-摩尔斯密码" class="headerlink" title="10. 摩尔斯密码"></a>10. 摩尔斯密码</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/摩斯密码.jpg" style="zoom:50%;" />
+
+</li>
+</ul>
+<h4 id="11-盲文"><a href="#11-盲文" class="headerlink" title="11. 盲文"></a>11. 盲文</h4>  <img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/盲文.png" style="zoom:50%;" />
+
+<h4 id="12-置换类密码的简介"><a href="#12-置换类密码的简介" class="headerlink" title="12. 置换类密码的简介"></a>12. 置换类密码的简介</h4><ul>
+<li>原理：置换是一个简单的换位操作，每个置换都可以用一个置换矩阵Ek来表示。每个置换都有一个与之对应的逆置换Dk。</li>
+<li>置换密码的特点是仅有一个发送方和接受方知道的加密置换(用于加密)及对应的逆置换(用于解密)。它是对明文L长字母组中的字母位置进行重新排列，而每个字母本身并不改变。</li>
+</ul>
+<h4 id="13-列置换"><a href="#13-列置换" class="headerlink" title="13.列置换"></a>13.列置换</h4><ul>
+<li>原理：加密将明文按固定长m分组，即<strong>每行m个字母</strong>，在密钥控制下按某一顺序<strong>交换列</strong>，最后按列优先的顺序依次读出，即产生了密文。</li>
+<li>解密：逆过程。</li>
+<li>解题时注意题目的提醒：todaygoodday，如果前面出现了，就把后面的去掉：todayg，按照字母顺序，结果为542163</li>
+</ul>
+<h4 id="14-周期置换"><a href="#14-周期置换" class="headerlink" title="14.周期置换"></a>14.周期置换</h4><ul>
+<li>例：<ul>
+<li>密钥：置换矩阵Ek= 1 234 5- -&gt; 2345 1</li>
+<li>密文: ellcH orldw</li>
+<li>明文为Hello world</li>
+</ul>
+</li>
+</ul>
+<h4 id="15-栅栏密码"><a href="#15-栅栏密码" class="headerlink" title="15.栅栏密码"></a>15.栅栏密码</h4><ul>
+<li>原理：所谓栅栏密码，就是把要加密的明文分成N个一组，然后把每组的第一个字母连起来，形成一段无规律的密文。注意，栅栏密码本身有一个潜规则，就是组成栅栏的字母一般不会太多。(一般不超过30个，也就是一、两句话)打开栅栏密码附件。</li>
+<li>例1:<ul>
+<li>密文: hrelldlioswmoe</li>
+<li>明文就是:helloworldisme</li>
+</ul>
+</li>
+</ul>
+<h4 id="16-曲路密码"><a href="#16-曲路密码" class="headerlink" title="16.曲路密码"></a>16.曲路密码</h4><ul>
+<li>曲路密码(Curve Cipher)是一种换位密码，需要事先双方约定密钥(也就是<strong>曲路路径</strong>)。</li>
+<li>例：<img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/曲路密码.png" style="zoom: 50%;" /></li>
+</ul>
+<h4 id="17-代换密码简介"><a href="#17-代换密码简介" class="headerlink" title="17.代换密码简介"></a>17.代换密码简介</h4><ul>
+<li>对明文进行替换，一一对应的关系</li>
+</ul>
+<h4 id="18-加法密码（凯撒）"><a href="#18-加法密码（凯撒）" class="headerlink" title="18.加法密码（凯撒）"></a>18.加法密码（凯撒）</h4><ul>
+<li>凯撒密码就是典型的加法密码，用后面的第三个字母代替。</li>
+<li>变异凯撒：</li>
+</ul>
+<h4 id="19-埃特巴什码"><a href="#19-埃特巴什码" class="headerlink" title="19.埃特巴什码"></a>19.埃特巴什码</h4><ul>
+<li>原理：埃特巴什码(Atbash Cipher)是一种以字母倒序排列作为特殊密钥的替换加密，也就是下面的对应关系：</li>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/atbashCipher.png" style="zoom:50%;" />
+
+</li>
+</ul>
+<h4 id="20-乘法密码"><a href="#20-乘法密码" class="headerlink" title="20.乘法密码"></a>20.乘法密码</h4><ul>
+<li>字符 * key (mod 26)</li>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/乘法密码.png" style="zoom:50%;" />
+
+
+
+</li>
+</ul>
+<ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/乘法密码——解密.png" style="zoom: 50%;" />
+
+</li>
+</ul>
+<h4 id="21-仿射密码"><a href="#21-仿射密码" class="headerlink" title="21.仿射密码"></a>21.仿射密码</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/仿射密码.png" style="zoom:50%;" />
+
+</li>
+</ul>
+<h4 id="22-密钥词组代替密码"><a href="#22-密钥词组代替密码" class="headerlink" title="22.密钥词组代替密码"></a>22.密钥词组代替密码</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/密钥词组替换.png" style="zoom:50%;" />
+
+</li>
+</ul>
+<h4 id="23-培根密码"><a href="#23-培根密码" class="headerlink" title="23.培根密码"></a>23.培根密码</h4><ul>
+<li><p>培根密码表：有时，题目会用a代表大写，b代表小写</p>
+</li>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/培根密码.png" style="zoom:50%;" />
+</li>
+<li><pre class=" language-python"><code class="language-python">data<span class="token operator">=</span><span class="token string">'bacoNisoneofaMerICaSsWEethEartSitsAdARLinGSuCCuLEntf0oDtHAtPaIRsFlawLE'</span>
+cipher <span class="token operator">=</span> <span class="token string">''</span>
+<span class="token keyword">for</span> x <span class="token keyword">in</span> data<span class="token punctuation">:</span>
+    x <span class="token operator">=</span> ord<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> x<span class="token operator">&lt;=</span><span class="token number">90</span> <span class="token operator">and</span>  x<span class="token operator">>=</span><span class="token number">65</span> <span class="token punctuation">:</span>
+        cipher <span class="token operator">+=</span> <span class="token string">'b'</span>
+    <span class="token keyword">else</span> <span class="token punctuation">:</span>
+        cipher <span class="token operator">+=</span> <span class="token string">'a'</span>
+<span class="token keyword">print</span> cipher</code></pre>
+</li>
+</ul>
+<h4 id="24-ROT系列"><a href="#24-ROT系列" class="headerlink" title="24.ROT系列"></a>24.ROT系列</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/rot.png" style="zoom:50%;" />
+
+</li>
+</ul>
+<h4 id="25-猪圈密码"><a href="#25-猪圈密码" class="headerlink" title="25.猪圈密码"></a>25.猪圈密码</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/猪圈密码.png" style="zoom:50%;" /></li>
+<li>密码表：</li>
+</ul>
+<img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/猪圈密码——密码表.png" style="zoom:33%;" />
+
+
+
+<h4 id="26-Vernam-密码（维吉尼亚密码）"><a href="#26-Vernam-密码（维吉尼亚密码）" class="headerlink" title="26.Vernam 密码（维吉尼亚密码）"></a>26.Vernam 密码（维吉尼亚密码）</h4><ul>
+<li>密码表：<img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/维吉尼亚密码.png" style="zoom:50%;" /></li>
+<li>明文是横行，密钥是列，密文是表格中的位置</li>
+</ul>
+<h4 id="27-希尔密码"><a href="#27-希尔密码" class="headerlink" title="27.希尔密码"></a>27.希尔密码</h4><ul>
+<li>希尔密码(HillCipher)是运用基本矩阵论原理的替换密码，由LesterS. Hill在1929年发明。每个字母当作26进制数字: A=0, B=1, C=2…一串字母当成n维向量，跟一个n X n的矩阵（密钥）相乘，再将得出的结果MOD 26。</li>
+<li>知道密文和密钥  找 逆矩阵 ？？</li>
+<li><a href="https://www.cryptool.org/en/" target="_blank" rel="noopener">https://www.cryptool.org/en/</a></li>
+</ul>
+<h4 id="28-playfair-cipher（公平的玩）"><a href="#28-playfair-cipher（公平的玩）" class="headerlink" title="28.playfair cipher（公平的玩）"></a>28.playfair cipher（公平的玩）</h4><ul>
+<li>原理：波雷费密码(英语: Playfair cipher)是一种对称式密码，是首种双字母取代的加密法。选取一个英文字作密钥。除去重复出现的字母。将密钥的字母逐个逐个加入5X 5的矩阵内，剩下的空间将未加入的英文字母依a-z的顺序加入。(将Q去除， 或将I和J视作同一字。)将要加密的讯息分成两个一组。若组内的字母相同，将X (或Q)加到该组的第一个字母后，重新分组。若剩下一个字，也加入X字。在每组中，找出两个字母在矩阵中的地方。</li>
+</ul>
+<h4 id="29-波利比奥斯方阵密码"><a href="#29-波利比奥斯方阵密码" class="headerlink" title="29.波利比奥斯方阵密码"></a>29.波利比奥斯方阵密码</h4><ul>
+<li><p>波利比奧斯方阵密码(PolybiusSquareCipher或称波利比奥斯棋盘)是棋盘密码的一种，是利用波利比奧斯方阵进行加密的密码方式，简单的来说就是把字母排列好，用坐标(行列)的形式表现出来。字母是密文，明文便是字母的坐标。</p>
+</li>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/波利比奥斯密码.png" style="zoom:50%;" />
+
+</li>
+</ul>
+<h4 id="30-ADFGX密码"><a href="#30-ADFGX密码" class="headerlink" title="30.ADFGX密码"></a>30.ADFGX密码</h4><ul>
+<li>ADFGX密码(ADFGX Cipher)是结合了改良过的Polybius方格替代密码与单行换位密码的矩阵加密密码，使用了5个合理的密文字母:A，D，F，G，X，这些字母之所以这样选择是因为当转译成摩尔斯电码(ADFGX密码是德国军队在一战发明使用的密码)不易混淆，目的是尽可能减少转译过程的操作错误。</li>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/ADFGV.png" style="zoom:50%;" />
+
+</li>
+</ul>
+<img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/ADFGV-2.png" style="zoom:50%;" />
+
+
+
+<h4 id="31-ADFGVX密码"><a href="#31-ADFGVX密码" class="headerlink" title="31.ADFGVX密码"></a>31.ADFGVX密码</h4><ul>
+<li>ADFGVX密码实际上就是ADFGX密码的扩充升级版，一样具有ADFGX密码相同的特点，加密过程也类似，不同的是密文字母增加了V,使得可以再使用10数字来替换明文。</li>
+<li>通过题目给的明文，计算得到 对应的棋盘密码表</li>
+<li><a href="https://xz.aliyun.com/t/3603" target="_blank" rel="noopener">https://xz.aliyun.com/t/3603</a></li>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/ADFGVX.png" style="zoom:50%;" />
+
+</li>
+</ul>
+<img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/ADFGVX-3.png" style="zoom:50%;" />
+
+
+
+<h4 id="31-双密码"><a href="#31-双密码" class="headerlink" title="31.双密码"></a>31.双密码</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/双密码.png" style="zoom:50%;" />
+
+</li>
+</ul>
+<h4 id="32-三分密码"><a href="#32-三分密码" class="headerlink" title="32.三分密码"></a>32.三分密码</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/三分密码.png" style="zoom:50%;" /></li>
+<li>密码表：<img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/三分密码-2.png" style="zoom:50%;" /></li>
+<li>例子：<img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/三分密码-3.png" style="zoom:50%;" /></li>
+</ul>
+<h4 id="33-四方密码"><a href="#33-四方密码" class="headerlink" title="33.四方密码"></a>33.四方密码</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/四方密码.png" style="zoom:50%;" /></li>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/四方密码-2.png" style="zoom:50%;" /></li>
+<li>密码表：<img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/四方密码-3.png" style="zoom:50%;" /></li>
+</ul>
+<h4 id="34-二方密码"><a href="#34-二方密码" class="headerlink" title="34.二方密码"></a>34.二方密码</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/二方密码.png" style="zoom:50%;" /></li>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/二方密码-2.png" style="zoom:50%;" /></li>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/二方密码-4.png" style="zoom:50%;" /></li>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/二方密码-3.png" style="zoom:50%;" />
+
+
+
+</li>
+</ul>
+<h4 id="35-自动密钥密码"><a href="#35-自动密钥密码" class="headerlink" title="35.自动密钥密码"></a>35.自动密钥密码</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/自动密钥密码.png" style="zoom:50%;" />
+
+
+
+</li>
+</ul>
+<h4 id="36-博福特密码"><a href="#36-博福特密码" class="headerlink" title="36.博福特密码"></a>36.博福特密码</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/博福特密码.png" style="zoom:50%;" /></li>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/博福特密码-2.png" style="zoom:50%;" />
+
+</li>
+</ul>
+<h4 id="37-滚动密钥密码"><a href="#37-滚动密钥密码" class="headerlink" title="37.滚动密钥密码"></a>37.滚动密钥密码</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/滚动密钥密码.png" style="zoom:50%;" />
+
+</li>
+</ul>
+<h4 id="38-Porta密码"><a href="#38-Porta密码" class="headerlink" title="38.Porta密码"></a>38.Porta密码</h4><ul>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/Porta密码.png" style="zoom:50%;" />
+</li>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/Prato密码-2.png" style="zoom:50%;" />
+
+
+
+</li>
+</ul>
+<h4 id="39-词频分析"><a href="#39-词频分析" class="headerlink" title="39.词频分析"></a>39.词频分析</h4><ul>
+<li><p><a href="https://quipqiup.com/" target="_blank" rel="noopener">https://quipqiup.com/</a></p>
+</li>
+<li><img src="https://gitee.com/lingying177/blogimage/raw/master/img/mima/词频分析.png" style="zoom:50%;" />
+
+
+
+
+
+</li>
+</ul>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a href="https://www.cnblogs.com/mq0036/p/6544055.html" target="_blank" rel="noopener">https://www.cnblogs.com/mq0036/p/6544055.html</a> </li>
+<li>python库：pycipher</li>
+<li>base64： <a href="https://www.cnblogs.com/peterYong/p/10959964.html" target="_blank" rel="noopener">https://www.cnblogs.com/peterYong/p/10959964.html</a> </li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://blog.aloogu.com" rel="external nofollow noreferrer">kylin</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://blog.aloogu.com/2020/03/26/mi-ma-xue/">http://blog.aloogu.com/2020/03/26/mi-ma-xue/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="http://blog.aloogu.com" target="_blank">kylin</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Web/">
+                                    <span class="chip bg-color">Web</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">
+                                    <span class="chip bg-color">密码学</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/03/26/1000-ge-chang-yong-duan-kou/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="1000个常用端口">
+                        
+                        <span class="card-title">1000个常用端口</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            网络中常见的1000个端口，可快速扫描遍历
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            kylin
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web/">
+                        <span class="chip bg-color">Web</span>
+                    </a>
+                    
+                    <a href="/tags/PORT/">
+                        <span class="chip bg-color">PORT</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/03/26/php-dai-ma-shen-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="PHP代码审计">
+                        
+                        <span class="card-title">PHP代码审计</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            常见的PHP代码审计，不常见的没有！！！
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Web/" class="post-category">
+                                    Web
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web/">
+                        <span class="chip bg-color">Web</span>
+                    </a>
+                    
+                    <a href="/tags/PHP/">
+                        <span class="chip bg-color">PHP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('100')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: kylin小小鱼<br />'
+            + '文章作者: kylin<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('3'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="http://blog.aloogu.com" target="_blank">kylin</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">57.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "3";
+                    var startDate = "26";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/lingying177" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1770824244@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1770824244" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1770824244" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+	<script src="https://cdn.jsdelivr.net/gh/Yafine/cdn@3.1.4/source/js/click_show_text.js" type="module"></script>
+    
+
+</body>
+
+</html>

